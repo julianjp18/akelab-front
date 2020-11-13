@@ -1,0 +1,33 @@
+.space-container {
+    text-align: center;
+}
+
+.ant-row {
+    .movie-container {
+        padding: 10px;
+        border: 1px solid #555555;
+        height: 600px;
+
+        .ant-row {
+            .ant-col {
+                .image-movie {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+                .description-movie {
+                    font-size: 11px;
+                    padding: 0 12px;
+                    text-align: justify;
+                }
+
+                .other-descriptions {
+                    font-size: 12px;
+                    text-align: start;
+                    padding-top: 10px;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}
