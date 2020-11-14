@@ -3,6 +3,42 @@
 }
 
 .ant-row {
+    .movies-list-container {
+        margin: 10px 0;
+
+        .ant-col {
+            &.show-movie {
+                display: block;
+            }
+            
+            &.hide-movie {
+                display: none;
+            }
+        }
+    }
+
+    .search-container {
+        margin-top: 3px;
+    }
+    
+    .filter-col {
+        border-right: 1px solid #8b8b8b;
+        border-left: 1px solid #8b8b8b;
+        margin: 0 5px;
+    }
+
+    .ant-dropdown-trigger {
+        &.img-filter {
+            margin-top: 10px;
+        }
+
+        &.order {
+            margin-top: 5px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+    }
+
     .movie-container {
         padding: 10px;
         border: 1px solid #555555;

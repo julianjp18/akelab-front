@@ -2,9 +2,10 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
   Link
 } from "react-router-dom";
+import Route from "./routes/Route";
+import history from './services/history';
 import Home from './components/Home';
 import Fibonacci from './components/Fibonacci';
 import ReplaceNumber from './components/ReplaceNumber';
@@ -12,7 +13,7 @@ import Movies from './components/Movies';
 import './App.scss';
 
 const App = () => (
-  <Router>
+  <Router history={history}>
     <div>
       <nav>
         <ul>
@@ -32,14 +33,11 @@ const App = () => (
       </nav>
 
       <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/" component={Movies} />
         <Route path="/fibonacci" component={Fibonacci} />
-        <Route path="/replaceNumber">
-          <ReplaceNumber />
-        </Route>
+        <Route path="/replaceNumber" component={ReplaceNumber} />
         <Route path="/movies" component={Movies} />
+        <Route component={Home} />
       </Switch>
     </div>
   </Router>

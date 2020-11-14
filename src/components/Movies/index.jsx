@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Spin, Input } from "antd";
+import FilterImage from '../../resources/images/filter.png';
+import { Row, Col, Spin, Input, Select } from "antd";
 import './movies.scss';
 
-const { Search } = Input;
+const { Option } = Select;
+
+const SHOW_MOVIE = 'show-movie';
+const HIDE_MOVIE = 'hide-movie';
 
 const getMovies = async () => {
   const response = await fetch('http://localhost:3001/movies', {
@@ -23,15 +27,23 @@ const getMovies = async () => {
 
 const Movies = () => {
   const [movies, setmovies] = useState();
-
+  const [order, setOrder] = useState();
+  const [searchTitleMovie, setSearchTitleMovie] = useState();
+  const [genres, setGenres] = useState();
   useEffect(() => {
     const allMovies = getMovies();
     if (allMovies) allMovies.then((res) => setmovies(res));
 
   }, []);
 
-  const onSearch = () => {
-
+  const changeOrder = (value) => setOrder(value);
+  const onSearch = (e) => {
+    const { value } = e.target;
+    setSearchTitleMovie(value);
+  }
+  const changeGenres = (values) => {
+    if (values) setGenres(values);
+    else setGenres([]);
   };
 
   const getGenres = (genres) => {
@@ -43,21 +55,73 @@ const Movies = () => {
     return genresList.join(", ");
   };
 
+  const getGenresIds = (genresMovies) => {
+    let isMatch = false;
+    genresMovies.map((genreId) => {
+      const found = genres.find(genreMovieId => genreMovieId === genreId);
+      if (found) {
+        isMatch = true;
+        return true;
+      }
+    });
+
+    return isMatch;
+  };
+
+  const showMovie = (genre_ids) => {
+    if (genres.length > 0) {
+      if (getGenresIds(genre_ids)) return SHOW_MOVIE;
+      return HIDE_MOVIE;
+    }
+    return SHOW_MOVIE;
+  };
+
+  const searchByTitle = (original_title, title) => {
+    return (title.toLowerCase().includes(searchTitleMovie.toLowerCase()) || original_title.toLowerCase().includes(searchTitleMovie.toLowerCase())) ? SHOW_MOVIE : HIDE_MOVIE;
+  };
+
+  const getFilter = ({ genre_ids, original_title, title }) => {
+    if (searchTitleMovie) return searchByTitle(original_title, title);
+    if (genres) return showMovie(genre_ids);
+    return SHOW_MOVIE;
+  };
+
   return movies ? (
     <Row>
       <Col xs={24}>
         <h1>Movies</h1>
-        <Row>
-          <Col xs={24}>
-            <div className="search-container">
-              <Search placeholder="Search movie..." onSearch={onSearch} enterButton />
-            </div>
-          </Col>
+        <Row className="movies-main-container">
           <Col xs={24}>
             <Row>
+              <Col xs={4}>
+                <div className="search-container">
+                  <Input placeholder="Search movie..." value={searchTitleMovie} onChange={onSearch} />
+                </div>
+              </Col>
+              <Col className="filter-col" xs={3}>
+                <Select mode="multiple" placeholder="Select genres" onChange={changeGenres} showArrow style={{ width: 150, textAlign: 'left', marginTop: 3 }}>
+                  {movies && movies.genres.map((genre) => (
+                    <Option value={genre.id}>{genre.name}</Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col xs={2}>
+                <Select placeholder="Order" onChange={changeOrder} style={{ width: 150, textAlign: 'left', marginTop: 3 }}>
+                  <Option value="disabled" disabled>Date</Option>
+                  <Option value="newsOlders">News - olders</Option>
+                  <Option value="oldersNews">Olders - news</Option>
+                  <Option value="disabled" disabled>Calification</Option>
+                  <Option value="zeroPoints">0 - 10 points</Option>
+                  <Option value="tenPoints">10 - 0 points</Option>
+                </Select>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={24}>
+            <Row className="movies-list-container">
               {movies.results.map((movie) => {
                 return (
-                  <Col xs={8}>
+                  <Col className={getFilter(movie)} xs={8}>
                     <div className="movie-container">
                       <h2 className="title-movie">{movie.title}</h2>
                       <Row>
