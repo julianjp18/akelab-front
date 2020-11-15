@@ -11,7 +11,7 @@ const SHOW_MOVIE = 'show-movie';
 const HIDE_MOVIE = 'hide-movie';
 
 const getMovies = async () => {
-  const response = await fetch('http://localhost:3001/movies', {
+  const response = await fetch('https://akelab-server.herokuapp.com/movies', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
