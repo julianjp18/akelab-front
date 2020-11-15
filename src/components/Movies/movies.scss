@@ -19,6 +19,7 @@
 
     .search-container {
         margin-top: 3px;
+        margin-left: 10px;
     }
     
     .filter-col {
@@ -40,9 +41,11 @@
     }
 
     .movie-container {
+        height: 600px;
+        margin: 5px 4px;
         padding: 10px;
         border: 1px solid #555555;
-        height: 600px;
+        border-radius: 10px;
 
         .ant-row {
             .ant-col {
@@ -62,6 +65,10 @@
                     text-align: start;
                     padding-top: 10px;
                     padding-left: 10px;
+
+                    .yellow-star {
+                        padding-bottom: 4px;
+                    }
                 }
             }
         }

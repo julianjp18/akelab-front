@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FilterImage from '../../resources/images/filter.png';
+import YellowStar from '../../resources/images/yellow_star.png';
+import GrayStar from '../../resources/images/gray_star.png';
 import { Row, Col, Spin, Input, Select } from "antd";
 import './movies.scss';
 
@@ -27,20 +29,80 @@ const getMovies = async () => {
 
 const Movies = () => {
   const [movies, setmovies] = useState();
+  const [originalMovies, setoriginalMovies] = useState();
   const [order, setOrder] = useState();
   const [searchTitleMovie, setSearchTitleMovie] = useState();
   const [genres, setGenres] = useState();
   useEffect(() => {
     const allMovies = getMovies();
-    if (allMovies) allMovies.then((res) => setmovies(res));
-
+    if (allMovies) allMovies.then((res) => {
+      setmovies(res);
+      setoriginalMovies(res);
+    });
   }, []);
 
-  const changeOrder = (value) => setOrder(value);
+  const orderMovies = (orderType) => {
+    if (orderType === 'asc-date') {
+      movies.results.sort((a, b) => {
+        if (a.release_date < b.release_date) {
+          return 1;
+        }
+        if (a.release_date > b.release_date) {
+          return -1;
+        }
+        
+        return 0;
+      });
+    } else if (orderType === 'desc-date') {
+      movies.results.sort((a, b) => {
+        if (a.release_date > b.release_date) {
+          return 1;
+        }
+        if (a.release_date < b.release_date) {
+          return -1;
+        }
+        
+        return 0;
+      });
+    } else if (orderType === 'zero-points') {
+      movies.results.sort((a, b) => {
+        if (a.vote_average > b.vote_average) {
+          return 1;
+        }
+        if (a.vote_average < b.vote_average) {
+          return -1;
+        }
+        
+        return 0;
+      });
+    } else if (orderType === 'ten-points') {
+      movies.results.sort((a, b) => {
+        if (a.vote_average < b.vote_average) {
+          return 1;
+        }
+        if (a.vote_average > b.vote_average) {
+          return -1;
+        }
+        
+        return 0;
+      });
+    } else setmovies(originalMovies);
+  };
+
+  const changeOrder = (value) => { 
+    setOrder(value);
+    if (!value) orderMovies('');
+    if (value === 'newsOlders') orderMovies('asc-date');
+    if (value === 'oldersNews') orderMovies('desc-date');
+    if (value === 'zeroPoints') orderMovies('zero-points');
+    if (value === 'tenPoints') orderMovies('ten-points');
+  };
+
   const onSearch = (e) => {
     const { value } = e.target;
     setSearchTitleMovie(value);
-  }
+  };
+
   const changeGenres = (values) => {
     if (values) setGenres(values);
     else setGenres([]);
@@ -85,6 +147,16 @@ const Movies = () => {
     if (genres) return showMovie(genre_ids);
     return SHOW_MOVIE;
   };
+
+  const showStars = () => (
+    <>
+      <img className="yellow-star" src={YellowStar} alt='yellow star' />
+      <img className="yellow-star" src={YellowStar} alt='yellow star' />
+      <img className="yellow-star" src={YellowStar} alt='yellow star' />
+      <img className="yellow-star" src={YellowStar} alt='yellow star' />
+      <img className="yellow-star" src={GrayStar} alt='yellow star' />
+    </>
+  );
 
   return movies ? (
     <Row>
@@ -132,7 +204,7 @@ const Movies = () => {
                           <p className="description-movie">{movie.overview}</p>
                           <div className="other-descriptions">
                             <p><b>Título:</b> {movie.original_title}</p>
-                            <p><b>Calificación:</b> {movie.vote_average}</p>
+                            <p><b>Calificación:</b> {movie.vote_average} {showStars(movie.vote_average)}</p>
                             <p><b>Géneros:</b> {getGenres(movie.genre_ids)}</p>
                             <p><b>Fecha de lanzamiento:</b> {movie.release_date}</p>
                           </div>

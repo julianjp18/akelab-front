@@ -1,6 +1,6 @@
-.movies-main-container {
-    margin: 5px 20px;
-    .ant-col {
+.ant-col {
+    &.points-col {
+        padding-left: 50px;
         p {
             text-align: start;
         }

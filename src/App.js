@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Link
 } from "react-router-dom";
+import { Menu } from 'antd';
 import Route from "./routes/Route";
 import history from './services/history';
 import Home from './components/Home';
@@ -12,35 +13,44 @@ import ReplaceNumber from './components/ReplaceNumber';
 import Movies from './components/Movies';
 import './App.scss';
 
-const App = () => (
-  <Router history={history}>
-    <div>
-      <nav>
-        <ul>
-          <li>
+export default function App() {
+  const [menu, setmenu] = useState({ current: 'home' });
+
+  const handleClick = (e) => setmenu({ current: e.key });
+
+  return (
+    <Router history={history}>
+      <div>
+        <Menu onClick={handleClick} selectedKeys={[menu.current]} mode="horizontal">
+          <Menu.Item key="home">
             <Link to="/">Home</Link>
-          </li>
-          <li>
+          </Menu.Item>
+          <Menu.Item key="fibonacci">
             <Link to="/fibonacci">Fibonacci</Link>
-          </li>
-          <li>
-            <Link to="/replaceNumber">Replace Number for AKALAB</Link>
-          </li>
-          <li>
-            <Link to="/movies">Movies</Link>
-          </li>
-        </ul>
-      </nav>
+          </Menu.Item>
+          <Menu.Item key="replaceNumber">
+          <Link to="/replaceNumber">Replace Number for AKELAB word</Link>
+          </Menu.Item>
+          <Menu.Item key="movies">
+          <Link to="/movies">Movies</Link>
+          </Menu.Item>
+        </Menu>
 
-      <Switch>
-        <Route path="/" component={Movies} />
-        <Route path="/fibonacci" component={Fibonacci} />
-        <Route path="/replaceNumber" component={ReplaceNumber} />
-        <Route path="/movies" component={Movies} />
-        <Route component={Home} />
-      </Switch>
-    </div>
-  </Router>
-);
-
-export default App;
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/fibonacci">
+            <Fibonacci />
+          </Route>
+          <Route path="/replaceNumber">
+            <ReplaceNumber />
+          </Route>
+          <Route path="/movies">
+            <Movies />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Button } from "antd";
+import { Row, Col } from "antd";
 import './fibonacci.scss';
-import NumberInput from '../../helpers/form/NumberInput';
+import Form from '../../helpers/form/Form';
 
 const Fibonacci = () => {
   const [fibonacciInputValue, setfibonacciInputValue] = useState(1);
@@ -30,22 +30,16 @@ const Fibonacci = () => {
     <Row>
       <Col xs={24}>
         <h1>Fibonacci Serie</h1>
+        <p>Please insert a number of digits that you what to see:</p>
       </Col>
       <Col xs={24}>
-        <Form onFinish={onSubmitFibonacciSerie}>
-          <Row>
-            <Col>
-              <NumberInput value={fibonacciInputValue} onChange={changeFibonnaciValue} />
-              <Button type="primary" htmlType="submit">Generate</Button>
-            </Col>
-          </Row>
-        </Form>
+        <Form onFinish={onSubmitFibonacciSerie} value={fibonacciInputValue} onChange={changeFibonnaciValue}  />
       </Col>
       <Col xs={24}>
         {fibonacciSerie && (
           <div>
             <h2>Fibonacci serie result:</h2>
-            <p>{fibonacciSerie}</p>
+            <p className="fibonacci-result">{fibonacciSerie}</p>
           </div>
         )}
       </Col>

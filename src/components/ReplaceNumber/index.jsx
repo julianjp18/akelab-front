@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Button } from "antd";
+import { Row, Col } from "antd";
 import './replaceNumber.scss';
-import NumberInput from '../../helpers/form/NumberInput';
+import Form from '../../helpers/form/Form';
 
-const AKA_WORD = "AKA";
+const AKE_WORD = "AKE";
 const LAB_WORD = "LAB";
 
 const ReplaceNumber = () => {
@@ -17,8 +17,8 @@ const ReplaceNumber = () => {
   }
 
   const getCorrectValue = (i) => {
-    if (isMultiple(i, 3) && isMultiple(i, 5)) return `${AKA_WORD}${LAB_WORD}`;
-    else if (isMultiple(i, 3)) return AKA_WORD;
+    if (isMultiple(i, 3) && isMultiple(i, 5)) return AKE_WORD+LAB_WORD;
+    else if (isMultiple(i, 3)) return AKE_WORD;
     else if (isMultiple(i, 5)) return LAB_WORD;
     else return i;
   };
@@ -36,23 +36,17 @@ const ReplaceNumber = () => {
   return (
     <Row>
       <Col xs={24}>
-        <h1>Replace an specific number for AKALAB word</h1>
+        <h1>Replace an specific number for AKE, LAB and AKELAB words</h1>
+        <p>Please insert a number of digits that you what to see:</p>
       </Col>
       <Col xs={24}>
-        <Form onFinish={onSubmitSequence}>
-          <Row>
-            <Col>
-              <NumberInput value={inputValue} onChange={changeInputValue} />
-              <Button type="primary" htmlType="submit">Generate</Button>
-            </Col>
-          </Row>
-        </Form>
+        <Form onFinish={onSubmitSequence} value={inputValue} onChange={changeInputValue}  />
       </Col>
       <Col xs={24}>
         {sequence && (
           <div>
             <h2>Serie result:</h2>
-            <p>{sequence}</p>
+            <p className="sequence-result">{sequence}</p>
           </div>
         )}
       </Col>
