@@ -22,32 +22,35 @@ export default function App() {
     <Router history={history}>
       <div>
         <Menu onClick={handleClick} selectedKeys={[menu.current]} mode="horizontal">
-          <Menu.Item key="home">
+          <Menu.Item key="akelab-front/home">
             <Link to="/">Home</Link>
           </Menu.Item>
-          <Menu.Item key="fibonacci">
+          <Menu.Item key="akelab-front/fibonacci">
             <Link to="/fibonacci">Fibonacci</Link>
           </Menu.Item>
-          <Menu.Item key="replaceNumber">
+          <Menu.Item key="akelab-front/replace-number">
           <Link to="/replaceNumber">Replace Number for AKELAB word</Link>
           </Menu.Item>
-          <Menu.Item key="movies">
+          <Menu.Item key="akelab-front/movies">
           <Link to="/movies">Movies</Link>
           </Menu.Item>
         </Menu>
 
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/akelab-front">
             <Home />
           </Route>
-          <Route path="/fibonacci">
+          <Route path="/akelab-front/fibonacci">
             <Fibonacci />
           </Route>
-          <Route path="/replaceNumber">
+          <Route path="/akelab-front/replace-number">
             <ReplaceNumber />
           </Route>
-          <Route path="/movies">
+          <Route path="/akelab-front/movies">
             <Movies />
+          </Route>
+          <Route>
+            <Home />
           </Route>
         </Switch>
       </div>
