@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/akelab-front/static/css/main.82b932fc.chunk.css",
-    "main.js": "/akelab-front/static/js/main.51ea25cf.chunk.js",
-    "main.js.map": "/akelab-front/static/js/main.51ea25cf.chunk.js.map",
+    "main.js": "/akelab-front/static/js/main.d2b6a3f0.chunk.js",
+    "main.js.map": "/akelab-front/static/js/main.d2b6a3f0.chunk.js.map",
     "runtime-main.js": "/akelab-front/static/js/runtime-main.184376d1.js",
     "runtime-main.js.map": "/akelab-front/static/js/runtime-main.184376d1.js.map",
     "static/css/2.404551a6.chunk.css": "/akelab-front/static/css/2.404551a6.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.404551a6.chunk.css",
     "static/js/2.83a8f4b2.chunk.js",
     "static/css/main.82b932fc.chunk.css",
-    "static/js/main.51ea25cf.chunk.js"
+    "static/js/main.d2b6a3f0.chunk.js"
   ]
 }
