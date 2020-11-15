@@ -23,16 +23,16 @@ export default function App() {
       <div>
         <Menu onClick={handleClick} selectedKeys={[menu.current]} mode="horizontal">
           <Menu.Item key="akelab-front/home">
-            <Link to="/">Home</Link>
+            <Link to="/akelab-front">Home</Link>
           </Menu.Item>
           <Menu.Item key="akelab-front/fibonacci">
-            <Link to="/fibonacci">Fibonacci</Link>
+            <Link to="/akelab-front/fibonacci">Fibonacci</Link>
           </Menu.Item>
           <Menu.Item key="akelab-front/replace-number">
-          <Link to="/replaceNumber">Replace Number for AKELAB word</Link>
+          <Link to="/akelab-front/replace-number">Replace Number for AKELAB word</Link>
           </Menu.Item>
           <Menu.Item key="akelab-front/movies">
-          <Link to="/movies">Movies</Link>
+          <Link to="/akelab-front/movies">Movies</Link>
           </Menu.Item>
         </Menu>
 
